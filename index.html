@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparações de Dados</title>
+</head>
+<body>
+  <h1>Abra o console (F12) para ver os resultados</h1>
+
+  <script>
+    let quantidade = parseInt(prompt("Quantas pessoas deseja cadastrar?"));
+    let pessoas = [];
+
+    for (let i = 0; i < quantidade; i++) {
+      let nome = prompt(`Pessoa ${i + 1} - Nome:`);
+      let sobrenome = prompt(`Pessoa ${i + 1} - Sobrenome:`); 
+      let idade = parseInt(prompt(`Pessoa ${i + 1} - Idade:`));
+      let profissao = prompt(`Pessoa ${i + 1} - Profissão:`).toLowerCase();
+      let corPreferida = prompt(`Pessoa ${i + 1} - Cor preferida:`).toLowerCase();
+      let bairro = prompt(`Pessoa ${i + 1} - Bairro:`).toLowerCase();
+      let cidade = prompt(`Pessoa ${i + 1} - Cidade:`).toLowerCase();
+      let pais = prompt(`Pessoa ${i + 1} - País:`).toLowerCase();
+      let celular = prompt(`Pessoa ${i + 1} - Celular:`);
+
+      pessoas.push({
+        nome,
+        sobrenome,
+        idade,
+        profissao,
+        corPreferida,
+        bairro,
+        cidade,
+        pais,
+        celular
+      });
+    }
+
+    // Mostrar todas as pessoas
+    console.log("==== Lista de Pessoas ====");
+    pessoas.forEach((p, index) => {
+      console.log(`Pessoa ${index + 1}: ${p.nome} ${p.sobrenome}, ${p.idade} anos, ${p.profissao}, ${p.bairro}, ${p.cidade}, ${p.pais}, Cor: ${p.corPreferida}`);
+    });
+
+    // Comparações
+    function agruparPorCampo(campo) {
+      let grupos = {};
+      pessoas.forEach(p => {
+        let chave = p[campo];
+        if (!grupos[chave]) {
+          grupos[chave] = [];
+        }
+        grupos[chave].push(`${p.nome} ${p.sobrenome}`);
+      });
+      return grupos;
+    }
+
+    function exibirGrupos(nomeGrupo, grupos) {
+      console.log(`\n==== Pessoas com o(a) mesmo(a) ${nomeGrupo} ====`);
+      for (let chave in grupos) {
+        if (grupos[chave].length > 1) {
+          console.log(`${nomeGrupo}: ${chave} => ${grupos[chave].join(", ")}`);
+        }
+      }
+    }
+
+    exibirGrupos("cidade", agruparPorCampo("cidade"));
+    exibirGrupos("bairro", agruparPorCampo("bairro"));
+    exibirGrupos("país", agruparPorCampo("pais"));
+    exibirGrupos("profissão", agruparPorCampo("profissao"));
+    exibirGrupos("cor preferida", agruparPorCampo("corPreferida"));
+
+    // Pessoa mais velha
+    let maisVelha = pessoas.reduce((maisVelho, atual) =>
+      atual.idade > maisVelho.idade ? atual : maisVelho
+    );
+    console.log(`\nPessoa mais velha: ${maisVelha.nome} ${maisVelha.sobrenome}, com ${maisVelha.idade} anos.`);
+
+    console.log("\n==== Fim da Comparação ====");
+  </script>
+</body>
+</html>
+
+
+
+
