@@ -1,45 +1,25 @@
-# Exercicio1.js - Coleta e Comparação de Dados
+# Cadastro de Carros
 
-Este é um projeto desenvolvido para coletar dados de várias pessoas e fazer comparações entre elas, como:
-- Idade
-- Cidade
-- Bairro
-- Cor preferida
-- Profissão
-
-## Como Funciona
-
-O script solicita ao usuário que insira informações sobre várias pessoas e as armazena em um array. Após a coleta, o programa exibe no console:
-
-- A lista de todas as pessoas cadastradas.
-- Quem é a pessoa mais velha.
-- Quais as cores preferidas mais citadas.
-- Comparações entre pessoas que moram na mesma cidade, bairro, país ou têm a mesma profissão.
+Este é um projeto simples para cadastro de carros, onde o usuário pode inserir informações como tipo, modelo, placa, ano, motor e combustível. O projeto também realiza comparações automáticas entre os carros cadastrados, como identificar o carro mais novo, contar a quantidade de carros com motor 2.0 e verificar quantos são Flex.
 
 ## Funcionalidades
 
-- **Cadastro de pessoas**: Coleta nome, sobrenome, idade, profissão, cor preferida, bairro, cidade, país e celular.
-- **Comparações**:
-  - Quem mora na mesma cidade, bairro, país ou tem a mesma profissão.
-  - Quem tem a mesma cor preferida.
-  - A pessoa mais velha do grupo.
+- Cadastro de carros com as seguintes informações:
+  - Tipo (ex: Sedan, SUV)
+  - Modelo
+  - Placa
+  - Ano
+  - Motor (ex: 1.0, 2.0)
+  - Combustível (ex: Gasolina, Álcool, Flex)
+  
+- Comparações automáticas:
+  - Qual é o carro mais novo.
+  - Quantidade de carros com motor 2.0.
+  - Quantidade de carros com combustível Flex.
 
-## Como Rodar o Projeto
+## Como rodar o projeto
 
-1. Clone o repositório ou baixe o código.
-2. Abra o arquivo `index.html` no seu navegador.
-3. Abra o console do navegador (pressione `F12` ou `Ctrl + Shift + I` no Chrome).
-4. O código pedirá para você preencher informações e, após isso, exibirá as comparações e resultados no console.
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/seu-repositorio.git
 
-## Tecnologias Utilizadas
-
-- **HTML**: Estruturação do site.
-- **JavaScript**: Lógica para coleta e comparação de dados.
-
-## Autor
-
-- **Saido Ture** - Desenvolvedor Full Stack em transição.
-
-## Licença
-
-Este projeto é de código aberto e distribuído sob a licença MIT.
