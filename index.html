@@ -3,83 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comparações de Dados</title>
+  <title>Cadastro de Carros e Comparações</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h1, h2 {
+      color: #333;
+    }
+    .carro, .comparacoes {
+      background: #e0e0e0;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Abra o console (F12) para ver os resultados</h1>
+  <h1>Cadastro de Carros</h1>
+  <h2>Resultados:</h2>
+  <div id="resultado"></div>
 
   <script>
-    let quantidade = parseInt(prompt("Quantas pessoas deseja cadastrar?"));
-    let pessoas = [];
+    let quantidade = parseInt(prompt("Quantos carros deseja cadastrar?"));
+    let carros = [];
 
     for (let i = 0; i < quantidade; i++) {
-      let nome = prompt(`Pessoa ${i + 1} - Nome:`);
-      let sobrenome = prompt(`Pessoa ${i + 1} - Sobrenome:`); 
-      let idade = parseInt(prompt(`Pessoa ${i + 1} - Idade:`));
-      let profissao = prompt(`Pessoa ${i + 1} - Profissão:`).toLowerCase();
-      let corPreferida = prompt(`Pessoa ${i + 1} - Cor preferida:`).toLowerCase();
-      let bairro = prompt(`Pessoa ${i + 1} - Bairro:`).toLowerCase();
-      let cidade = prompt(`Pessoa ${i + 1} - Cidade:`).toLowerCase();
-      let pais = prompt(`Pessoa ${i + 1} - País:`).toLowerCase();
-      let celular = prompt(`Pessoa ${i + 1} - Celular:`);
+      let tipo = prompt(`Carro ${i + 1} - Tipo (ex: Sedan, SUV, Hatch):`);
+      let modelo = prompt(`Carro ${i + 1} - Modelo:`);
+      let placa = prompt(`Carro ${i + 1} - Placa:`);
+      let ano = parseInt(prompt(`Carro ${i + 1} - Ano:`));
+      let motor = prompt(`Carro ${i + 1} - Motor (ex: 1.0, 1.5, 2.0, 3.0):`);
+      let combustivel = prompt(`Carro ${i + 1} - Combustível (ex: Gasolina, Álcool, Flex, Diesel):`);
 
-      pessoas.push({
-        nome,
-        sobrenome,
-        idade,
-        profissao,
-        corPreferida,
-        bairro,
-        cidade,
-        pais,
-        celular
+      carros.push({
+        tipo,
+        modelo,
+        placa,
+        ano,
+        motor,
+        combustivel: combustivel.toLowerCase()
       });
     }
 
-    // Mostrar todas as pessoas
-    console.log("==== Lista de Pessoas ====");
-    pessoas.forEach((p, index) => {
-      console.log(`Pessoa ${index + 1}: ${p.nome} ${p.sobrenome}, ${p.idade} anos, ${p.profissao}, ${p.bairro}, ${p.cidade}, ${p.pais}, Cor: ${p.corPreferida}`);
+    // Exibir carros na tela
+    const resultadoDiv = document.getElementById("resultado");
+
+    carros.forEach((carro, index) => {
+      resultadoDiv.innerHTML += `
+        <div class="carro">
+          <strong>Carro ${index + 1}</strong><br>
+          Tipo: ${carro.tipo}<br>
+          Modelo: ${carro.modelo}<br>
+          Placa: ${carro.placa}<br>
+          Ano: ${carro.ano}<br>
+          Motor: ${carro.motor}<br>
+          Combustível: ${carro.combustivel}
+        </div>
+      `;
     });
 
-    // Comparações
-    function agruparPorCampo(campo) {
-      let grupos = {};
-      pessoas.forEach(p => {
-        let chave = p[campo];
-        if (!grupos[chave]) {
-          grupos[chave] = [];
-        }
-        grupos[chave].push(`${p.nome} ${p.sobrenome}`);
-      });
-      return grupos;
-    }
+    // COMPARAÇÕES AUTOMÁTICAS
 
-    function exibirGrupos(nomeGrupo, grupos) {
-      console.log(`\n==== Pessoas com o(a) mesmo(a) ${nomeGrupo} ====`);
-      for (let chave in grupos) {
-        if (grupos[chave].length > 1) {
-          console.log(`${nomeGrupo}: ${chave} => ${grupos[chave].join(", ")}`);
-        }
+    // 1. Carro mais novo
+    let carroMaisNovo = carros[0];
+    for (let i = 1; i < carros.length; i++) {
+      if (carros[i].ano > carroMaisNovo.ano) {
+        carroMaisNovo = carros[i];
       }
     }
 
-    exibirGrupos("cidade", agruparPorCampo("cidade"));
-    exibirGrupos("bairro", agruparPorCampo("bairro"));
-    exibirGrupos("país", agruparPorCampo("pais"));
-    exibirGrupos("profissão", agruparPorCampo("profissao"));
-    exibirGrupos("cor preferida", agruparPorCampo("corPreferida"));
+    // 2. Quantos carros motor 2.0
+    let motor2Contador = carros.filter(carro => carro.motor === "2.0").length;
 
-    // Pessoa mais velha
-    let maisVelha = pessoas.reduce((maisVelho, atual) =>
-      atual.idade > maisVelho.idade ? atual : maisVelho
-    );
-    console.log(`\nPessoa mais velha: ${maisVelha.nome} ${maisVelha.sobrenome}, com ${maisVelha.idade} anos.`);
+    // 3. Quantos carros Flex
+    let flexContador = carros.filter(carro => carro.combustivel.includes("flex")).length;
 
-    console.log("\n==== Fim da Comparação ====");
+    // Exibir comparações
+    resultadoDiv.innerHTML += `
+      <div class="comparacoes">
+        <h2>Comparações:</h2>
+        <p><strong>Carro mais novo:</strong> ${carroMaisNovo.modelo} (${carroMaisNovo.ano})</p>
+        <p><strong>Quantidade de carros motor 2.0:</strong> ${motor2Contador}</p>
+        <p><strong>Quantidade de carros com combustível Flex:</strong> ${flexContador}</p>
+      </div>
+    `;
   </script>
 </body>
 </html>
+
 
 
 
